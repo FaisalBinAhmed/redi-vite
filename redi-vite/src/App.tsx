@@ -34,31 +34,33 @@ function App() {
 export default App
 
 
+
+type Todo = {
+  userId: number
+  id: number
+  title: string
+  completed: boolean
+}
+
 const Todolist = () => {
 
-  const [todos, setTodos] = useState<string[]>([])
+  const [todos, setTodos] = useState<Todo[]>([])
 
 
   const fetchTodos = async () => {
     const todosFromApi = await fetch("https://jsonplaceholder.typicode.com/todos")
-    const todosJson = await todosFromApi.json()
-    const todoTitles = todosJson.map((todo: { title: string }) => todo.title)
-    setTodos(todoTitles)
+    const todosJson: Todo[] = await todosFromApi.json()
+    setTodos(todosJson)
   }
-
 
   useEffect(() => {
     fetchTodos()
   }, []) // it doesnt depends on anything, so it runs only once
 
-  useEffect(() => {
-    console.log("Todos updated:", todos.length)
-  }, [todos]) // it runs every time todos changes
-
   return <div>
     <ul>
-      {todos.map((todo, index) => (
-        <li key={index}>{todo}</li>
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.title}</li>
       ))}
     </ul>
   </div>
