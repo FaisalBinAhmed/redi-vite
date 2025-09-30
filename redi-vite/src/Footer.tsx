@@ -1,14 +1,12 @@
-import { useState, useCallback } from "react";
+import { useCounter } from "./hooks/useCounter";
 
 const Footer: React.FC = () => {
-	const [count, setCount] = useState(0);
-
-	const increment = useCallback(() => setCount((c) => c + 1), []);
-	const decrement = useCallback(() => setCount((c) => c - 1), []);
+	const { counter, increment, decrement } = useCounter();
 
 	return (
 		<footer style={{ padding: "1rem", textAlign: "center" }}>
 			<div style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}>
+				<span>Count: {counter}</span>
 				<button type="button" onClick={increment}>
 					Increment
 				</button>

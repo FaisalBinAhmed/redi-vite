@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 type Todo = {
 	userId: number;
@@ -10,13 +10,13 @@ type Todo = {
 export const Todolist = () => {
 	const [todos, setTodos] = useState<Todo[]>([]);
 
-	const fetchTodos = async () => {
+	const fetchTodos = useCallback(async () => {
 		const todosFromApi = await fetch(
 			"https://jsonplaceholder.typicode.com/todos",
 		);
 		const todosJson: Todo[] = await todosFromApi.json();
 		setTodos(todosJson);
-	};
+	}, []);
 
 	useEffect(() => {
 		fetchTodos();
@@ -26,11 +26,15 @@ export const Todolist = () => {
 		console.log("fetchTodos reference changed");
 	}, [fetchTodos]); // it runs when todos change
 
-    const totalTodoChars = todos.reduce((acc, todo) => acc + todo.title.length, 0);
-    console.log("Total characters in todo titles:", totalTodoChars);
+	const totalTodoChars = useMemo(
+		() => todos.reduce((acc, todo) => acc + todo.title.length, 0),
+		[todos],
+	);
+	// console.log("Total characters in todo titles:", totalTodoChars);
 
 	return (
 		<div>
+			<p>Total characters in todo titles: {totalTodoChars}</p>
 			<ul>
 				{todos.map((todo) => (
 					<li key={todo.id}>{todo.title}</li>
@@ -39,11 +43,3 @@ export const Todolist = () => {
 		</div>
 	);
 };
-
-//   const fetchTodos = useCallback(async () => {
-//     const todosFromApi = await fetch(
-//       "https://jsonplaceholder.typicode.com/todos",
-//     );
-//     const todosJson: Todo[] = await todosFromApi.json();
-//     setTodos(todosJson);
-//   }, []);

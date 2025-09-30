@@ -1,27 +1,30 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import "./App.css";
 import { Todolist } from "./Todolist";
+import Footer from "./Footer";
+import { useCounter } from "./hooks/useCounter";
 
 function App() {
-	const [count, setCount] = useState(0);
-	const [info, setInfo] = useState("dummy info");
+	// const [count, setCount] = useState(0);
+	// const [info, setInfo] = useState("dummy info");
 
-	useEffect(() => {
-		if (count > 10) {
-			setInfo("Count is greater than 10");
-		}
-	}, [count]);
+	// useEffect(() => {
+	// 	if (count > 10) {
+	// 		setInfo("Count is greater than 10");
+	// 	}
+	// }, [count]);
+
+	const { counter, increment } = useCounter();
 
 	return (
 		<div className="card">
-			<button type="button" onClick={() => setCount((count) => count + 1)}>
-				count is {count}
+			<button type="button" onClick={increment}>
+				count is {counter}
 			</button>
-			<p>{info}</p>
-			<p>
-				Edit <code>src/App.tsx</code> and save to test HMR
-			</p>
-			{count === 5 && <Todolist />}
+			{/* <p>{info}</p> */}
+			{/* {counter === 5 && <Todolist />} */}
+			{/* <Todolist /> */}
+			<Footer />
 		</div>
 	);
 }
