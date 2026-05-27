@@ -1,8 +1,9 @@
 // import { useEffect, useState } from "react";
 import "./App.css";
-import { Todolist } from "./Todolist";
+// import { Todolist } from "./Todolist";
 import Footer from "./Footer";
 import { useCounter } from "./hooks/useCounter";
+import UseExamples from "./UseExamples";
 
 function App() {
 	// const [count, setCount] = useState(0);
@@ -14,17 +15,18 @@ function App() {
 	// 	}
 	// }, [count]);
 
-	const { counter, increment } = useCounter();
+	// const { counter, increment } = useCounter();
 
 	return (
 		<div className="card">
-			<button type="button" onClick={increment}>
+			{/* <button type="button" onClick={increment}>
 				count is {counter}
-			</button>
+			</button> */}
 			{/* <p>{info}</p> */}
 			{/* {counter === 5 && <Todolist />} */}
 			{/* <Todolist /> */}
-			<Footer />
+			<UseExamples />
+			{/* <Footer /> */}
 		</div>
 	);
 }
